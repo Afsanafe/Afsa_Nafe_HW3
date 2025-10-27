@@ -1,3 +1,20 @@
+/*
+File: style.css
+Assignment: Dynamic Multiplication Table (Interactive Web App)
+About: This webpage allows users to generate a fully dynamic and scrollable
+multiplication table by entering custom row and column ranges. The page
+includes input validation, smooth hover highlighting, and sticky headers
+for improved readability and user experience.
+
+Author: Afsa Nafe
+Affiliation: UMass Lowell, Computer Science Department
+Email: afsa_nafe@student.uml.edu
+Copyright (c) 2025 by Afsa Nafe. 
+All rights reserved. May be freely copied or excerpted for educational purposes 
+with credit to the author.
+Last updated by Afsa Nafe on October 26th, 2025 at 10:19 PM
+*/
+
 :root {
   /* Define global color variables for consistent theming */
   --bg: #0b0f14;
