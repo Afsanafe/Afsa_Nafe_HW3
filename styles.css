@@ -102,26 +102,56 @@ thead th, tbody th, td {
   white-space: nowrap;
 }
 
+/* Keep headers' own backgrounds fully opaque */
+thead th, tbody th { background-clip: padding-box; }
+
+/* Smooth fade for any background changes */
+table td, table th {
+  transition: background-color 100ms ease-in-out;
+}
+
+/* Alternating columns/rows for readability */
+/* Zebra — skip highlighted row and highlighted column cells */
+tbody tr:nth-child(even):not(.row-hover) td:not(.col-hover) { background: #000206b5; }
+tbody tr:nth-child(odd):not(.row-hover)  td:not(.col-hover) { background: #413a3af3; }
+
+tbody td.col-hover {
+    background: rgba(70, 243, 255, 0.369);
+}
+
+tbody tr.row-hover > td {
+    background: rgba(70, 243, 255, 0.369);
+}
+
+/* Stronger intersection (still only data cells) */
+tbody tr.row-hover > td.col-hover {
+  background: rgba(26,115,232,0.28);
+}
+
+/* follow reduced-motion preferences if enabled in users system */
+@media (prefers-reduced-motion: reduce) {
+  table td, table th { transition: none; }
+}
+
 /* Corner & headers */
 thead th {
   position: sticky;
   top: 0;
-  background: #162032;
+  background: #4d83e8;
   z-index: 3;
 }
 tbody th {
   position: sticky;
   left: 0;
-  background: #151e2e;
+  background: #4374c9;
   z-index: 2;
 }
 /* Top-left corner cell */
 thead th.corner {
   left: 0;
   z-index: 4;
+  background: #000000;
 }
 
-/* Alternating columns/rows for readability */
-tbody tr:nth-child(even) td { background: #0e1520; }
-tbody tr:nth-child(odd)  td { background: #0c121b; }
-tbody td:nth-child(even) { background: #0d1420; }
+
+

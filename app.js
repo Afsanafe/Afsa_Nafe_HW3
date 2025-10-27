@@ -124,6 +124,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
         tableHost.appendChild(table);
 
+        table.addEventListener("mouseover", (e) => {
+            const td = e.target.closest("td, th");
+            if (!td) return;
+
+            // Ignore header row entirely
+            if (td.closest("thead")) return;
+            // Ignore header(first) column entirely
+            if (td.cellIndex === 0) return;
+
+            const col = td.cellIndex + 1; // 1-based for :nth-child
+
+            const t = td.closest("table");
+            t.classList.add("col-hovering");
+
+            // Highlight column only in tbody (not thead)
+            t.querySelectorAll(`tbody td:nth-child(${col}), tbody th:nth-child(${col})`)
+                .forEach(el => el.classList.add("col-hover"));
+
+            // Highlight the hovered row (this row is in tbody due to the guard above)
+            td.closest("tr").classList.add("row-hover");
+        });
+
+
+        table.addEventListener("mouseout", (e) => {
+            const td = e.target.closest("td, th");
+            if (!td) return;
+            table.querySelectorAll(".col-hover").forEach(el => el.classList.remove("col-hover"));
+            table.querySelectorAll(".row-hover").forEach(el => el.classList.remove("row-hover"));
+            table.classList.remove("col-hovering");
+            });
+
         });
 
         clearBtn.addEventListener("click", () => {
