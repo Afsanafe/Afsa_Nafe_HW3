@@ -1,4 +1,5 @@
 :root {
+  /* Define global color variables for consistent theming */
   --bg: #0b0f14;
   --panel: #121821;
   --ink: #e9eef5;
@@ -8,23 +9,31 @@
   --grid: #1b2533;
 }
 
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+/* Universal settings */
+* { box-sizing: border-box; } /* Ensures padding/border don’t affect element width */
+html, body { height: 100%; }  /* Allow full-page backgrounds */
+
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--ink);
+  /* Subtle dark gradient background centered toward the top-right */
   background: radial-gradient(1200px 800px at 70% -10%, #172030 0, var(--bg) 60%);
 }
 
+/* General page container */
 .page {
   max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 16px;
+  margin: 40px auto;   /* Center horizontally with vertical margin */
+  padding: 0 16px;     /* Side padding for spacing */
 }
 
-h1 { margin: 0 0 16px; font-weight: 700; }
+h1 { 
+  margin: 0 0 16px; 
+  font-weight: 700; 
+}
 
+/* Generic content card */
 .card {
   background: var(--panel);
   border: 1px solid #283548;
@@ -33,14 +42,24 @@ h1 { margin: 0 0 16px; font-weight: 700; }
   margin-bottom: 24px;
 }
 
+/* Two-column grid layout used for forms or controls */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(220px, 1fr));
-  gap: 12px 16px;
+  gap: 12px 16px; /* Row and column gaps */
   margin-bottom: 12px;
 }
 
-label { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); }
+/* Label + input styling */
+label { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px; 
+  font-size: 14px; 
+  color: var(--muted); 
+}
+
+/* Numeric input field styling */
 input[type="number"] {
   background: #0f141c;
   color: var(--ink);
@@ -49,8 +68,13 @@ input[type="number"] {
   padding: 10px 12px;
 }
 
-.hint { color: var(--muted); margin: 6px 0 12px; }
+/* Hint text below form fields */
+.hint { 
+  color: var(--muted); 
+  margin: 6px 0 12px; 
+}
 
+/* Primary button */
 button {
   background: var(--accent);
   color: #0b0f14;
@@ -61,97 +85,112 @@ button {
   cursor: pointer;
   font-weight: 600;
 }
+
+/* Ghost (outline) button variant */
 button.ghost {
   background: transparent;
   color: var(--ink);
   border: 1px solid #2a384c;
 }
 
+/* Area for displaying validation or runtime errors */
 #errors {
   margin-top: 10px;
   color: var(--error);
-  min-height: 1.2em; /* reserve space even when empty */
+  min-height: 1.2em; /* Keeps layout consistent even if empty */
 }
 
-/* Scrollable host */
+/* ===== Scrollable Table Container ===== */
 .table-wrap {
   background: var(--panel);
   border: 1px solid #283548;
   border-radius: 12px;
   padding: 12px;
 }
+
+/* Enables scrolling for large tables */
 .scroller {
-  max-height: 60vh; /* big tables still readable */
-  overflow: auto;
+  max-height: 60vh;  /* Limit height to 60% of viewport */
+  overflow: auto;    /* Make contents scrollable */
   border-radius: 8px;
   border: 1px solid #233146;
 }
 
-/* Table styling */
+/* ===== Table styling ===== */
 table {
-  border-collapse: separate;
+  border-collapse: separate;  /* Maintain spacing between cells */
   border-spacing: 0;
-  width: max-content; /* prevent squish on many columns */
+  width: max-content;         /* Prevents columns from squeezing too narrow */
   background: #0f141c;
 }
+
+/* Shared cell spacing, border, and alignment */
 thead th, tbody th, td {
   padding: 8px 12px;
   border-right: 1px solid var(--grid);
   border-bottom: 1px solid var(--grid);
-  text-align: right;
-  white-space: nowrap;
+  text-align: right;  /* Align numbers neatly */
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
-/* Keep headers' own backgrounds fully opaque */
+/* Ensure header backgrounds remain opaque during hover highlighting */
 thead th, tbody th { background-clip: padding-box; }
 
-/* Smooth fade for any background changes */
+/* Add a smooth fade animation for hover effects */
 table td, table th {
   transition: background-color 100ms ease-in-out;
 }
 
-/* Alternating columns/rows for readability */
-/* Zebra — skip highlighted row and highlighted column cells */
-tbody tr:nth-child(even):not(.row-hover) td:not(.col-hover) { background: #000206b5; }
-tbody tr:nth-child(odd):not(.row-hover)  td:not(.col-hover) { background: #413a3af3; }
+/* ===== Zebra striping for readability ===== */
+/* Alternate row colors, skipping highlighted ones */
+tbody tr:nth-child(even):not(.row-hover) td:not(.col-hover) { 
+  background: #000206b5; 
+}
+tbody tr:nth-child(odd):not(.row-hover)  td:not(.col-hover) { 
+  background: #413a3af3; 
+}
 
+/* Highlight column cells under hover */
 tbody td.col-hover {
-    background: rgba(70, 243, 255, 0.369);
+  background: rgba(70, 243, 255, 0.369);
 }
 
+/* Highlight entire hovered row */
 tbody tr.row-hover > td {
-    background: rgba(70, 243, 255, 0.369);
+  background: rgba(70, 243, 255, 0.369);
 }
 
-/* Stronger intersection (still only data cells) */
+/* Stronger highlight where hovered row & column intersect */
 tbody tr.row-hover > td.col-hover {
   background: rgba(26,115,232,0.28);
 }
 
-/* follow reduced-motion preferences if enabled in users system */
+/* Disable transitions for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   table td, table th { transition: none; }
 }
 
-/* Corner & headers */
+/* ===== Sticky headers and corner ===== */
+
+/* Top header row — stays visible when scrolling vertically */
 thead th {
   position: sticky;
   top: 0;
   background: #4d83e8;
-  z-index: 3;
+  z-index: 3; /* Ensures it appears above body cells */
 }
+
+/* First column — stays visible when scrolling horizontally */
 tbody th {
   position: sticky;
   left: 0;
   background: #4374c9;
   z-index: 2;
 }
-/* Top-left corner cell */
+
+/* Top-left corner cell — pinned in both directions */
 thead th.corner {
   left: 0;
-  z-index: 4;
+  z-index: 4; /* Highest layer to stay above all other headers */
   background: #000000;
 }
-
-
-

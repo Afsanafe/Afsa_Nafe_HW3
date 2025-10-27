@@ -4,15 +4,36 @@
   <meta charset="UTF-8" />
   <title>Dynamic Multiplication Table</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- External stylesheet that defines the layout, colors, table behavior -->
   <link rel="stylesheet" href="styles.css" />
-  <!-- Defer = wait to run JS until HTML is parsed -->
+
+  <!-- 
+    The `defer` attribute tells the browser:
+    "Download the JS now, but don't run it until the HTML is fully parsed."
+    This ensures elements like forms and divs exist before the script tries to access them.
+  -->
   <script src="app.js" defer></script>
 </head>
+
 <body>
+  <!-- Primary page container for consistent spacing and centered layout -->
   <main class="page">
+    <!-- Title shown at the top of the page -->
     <h1>Interactive Multiplication Table</h1>
 
+    <!-- 
+      === Input Form ===
+      Collects user inputs for table boundaries.
+      `novalidate` disables browser’s built-in pop-up validation — 
+      custom inline validation will be handled in JS instead.
+    -->
     <form id="table-form" class="card" novalidate>
+
+      <!-- 
+        Organized 2x2 grid of number inputs for user-specified range.
+        Each label wraps its corresponding input for better accessibility.
+      -->
       <div class="grid">
         <label>
           Row Value (Minimum)
@@ -32,16 +53,30 @@
         </label>
       </div>
 
+      <!-- Instructional hint for valid input range -->
       <p class="hint">Acceptable range: −50 to 50 (inclusive).</p>
 
+      <!-- 
+        Submit button: triggers table generation via JavaScript.
+        “Clear” button: resets all fields and clears generated output.
+      -->
       <button type="submit">Generate Table</button>
       <button type="button" id="clearBtn" class="ghost">Clear</button>
 
-      <!-- Inline error area (no popups!) -->
+      <!-- 
+        Error messages appear here dynamically.
+        role="alert" + aria-live="polite" ensures screen readers announce errors.
+        This keeps feedback accessible without intrusive popups.
+      -->
       <div id="errors" role="alert" aria-live="polite"></div>
     </form>
 
-    <!-- Scrollable container with sticky headers goes here -->
+    <!-- 
+      === Table Display Area ===
+      The generated multiplication table is dynamically inserted here by JS.
+      `.table-wrap` provides visual container styling,
+      `.scroller` allows scrolling when the table grows large.
+    -->
     <section class="table-wrap">
       <div id="tableHost" class="scroller"></div>
     </section>
